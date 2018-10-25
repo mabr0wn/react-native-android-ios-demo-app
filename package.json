@@ -4,5 +4,9 @@
   "description": "React Native with Android and IOS",
   "main": "index.js",
   "author": "Matthew D. Brown",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "react-native": "^0.57.4",
+    "react-native-material-design": "^0.3.7"
+  }
 }
