@@ -85,32 +85,32 @@ export default class SearchPage extends Component<Props> {
   _executeQuery = (e) => {
     //console.log(query);
     this.setState({ isLoading: true });
-    return fetch('https://facebook.github.io/react-native/movies.json')
-    .then((response) => response.json())
-    .then(json => this._handleResponse(json.response))
-    .catch(error =>
-          this.setState({
-              isLoading: false,
-              message: 'Something bad happened ' + error
-          }));
-    // fetch(query)
-    //   .then(response => response.json())
-    //   // .then(json => this._handleResponse(json.response))
-    //   .catch(error =>
-    //     this.setState({
-    //         isLoading: false,
-    //         message: 'Something bad happened ' + error
-    //     }));
+    // return fetch('https://facebook.github.io/react-native/movies.json')
+    // .then((response) => response.json())
+    // .then(json => this._handleResponse(json.response))
+    // .catch(error =>
+    //       this.setState({
+    //           isLoading: false,
+    //           message: 'Something bad happened ' + error
+    //       }));
+    fetch(query)
+      .then(response => response.json())
+      // .then(json => this._handleResponse(json.response))
+      .catch(error =>
+        this.setState({
+            isLoading: false,
+            message: 'Something bad happened ' + error
+        }));
   };
   /**
    * This clears `isLoading` and logs the number of properties found if the query was successful.
    */
   _handleResponse = (response) => {
     this.setState({ isLoading: false , message: '' });
-    if (response.movies) {
+    if (response.application_response_code) {
       console.log('Properties found: ' + response.movies.length);
-      // this.props.navigation.navigate(
-      //   'Results', {listings: response.listings});
+      this.props.navigation.navigate(
+        'Results', {listings: response.listings});
       } else {
       this.setState({ message: 'Location not recognized; please try again.'});
     }
