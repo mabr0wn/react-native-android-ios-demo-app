@@ -35,8 +35,9 @@ First install Homebrew using the instructions on the [Homebrew website](http://
 brew install node
 
 Next, use `homebrew` to install [watchman](https://facebook.github.io/watchman/), a file watcher from Facebook:
-
+```source-shell
 brew install watchman
+```
 
 This is used by React Native to figure out when your code changes and rebuild accordingly. It's like having Android Studio do a build each time you save your file.
 
@@ -47,17 +48,17 @@ Windows
 First install Chocolatey using the instructions on the [Chocolatey website](https://chocolatey.org/).
 
 Install Node.js if you don't have it or have a version older than 4. Run the following command as Administrator (Right-click on Command Prompt and select "Run as Administrator"):
-
+```source-shell
 choco install -y nodejs.install
-
+```
 Python is needed to run the React Native build scripts. Run the following command as Administrator if you don't have Python 2:
-
+```source-shell
 choco install -y python2
-
+```
 Run the following command as Administrator if you don't have a JDK or have a version older than 8:
-
+```source-shell
 choco install -y jdk8
-
+```
 Linux
 
 Install Node.js by following the [installation instructions for your Linux distribution](https://nodejs.org/en/download/package-manager/). You will want to install Node.js version 6 or newer.
@@ -67,9 +68,9 @@ Finally, [download and install JDK 8 or newer](http://www.oracle.com/technetwor
 ### React Native CLI
 
 Use [Node Package Manager](https://www.npmjs.com/) (or npm) to install the React Native Command Line Interface (CLI) tool. In your terminal (Terminal or Command Prompt or shell) type:
-
+```source-shell
 npm install -g react-native-cli
-
+```
 npm fetches the CLI tool and installs it globally; npm is similar in function to [JCenter](https://bintray.com/bintray/jcenter) and is packaged with Node.js.
 
 Next, install Yarn using the instructions on the [Yarn website](https://yarnpkg.com/en/docs/install). Yarn is a fast npm client.
@@ -103,8 +104,9 @@ This uses the CLI tool to create a starter project containing everything you nee
 
 In a terminal, run:
 
+```source-shell
 cd PropertyFinder
-
+```
 In the created folders and files you will find a few items of note:
 
 -   node_modules is a folder which contains the React Native framework
@@ -116,9 +118,9 @@ In the created folders and files you will find a few items of note:
 Start your Android emulator running SDK 23 if it isn't running.
 
 Run the following command in a terminal:
-
+```source-shell
 react-native run-android
-
+```
 The emulator will display the following:
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_starter-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_starter.png)
@@ -150,7 +152,7 @@ React Native Basics
 In this section, you'll learn React Native basics as you begin working on PropertyFinder.
 
 Open App.js in your text editor of choice and take a look at the structure of the code in the file:
-
+```javascript
 import React, { Component } from 'react'; // 1
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
@@ -160,7 +162,7 @@ type Props = {};
 export default class App extends Component<Props> { ... } // 3
 
 const styles = StyleSheet.create({ ... }); // 4
-
+```
 Let's go through the code step-by-step:
 
 1.  Imports the required modules.
@@ -169,9 +171,9 @@ Let's go through the code step-by-step:
 4.  Creates a style object that controls the component's layout and appearance.
 
 Take a closer look at this import statement:
-
+```javascript
 import React, { Component } from 'react';
-
+```
 This uses the ECMAScript 6 (ES6) import syntax to load the `react` module and assign it to a variable called `React`. This is roughly equivalent to importing libraries in Android. It also uses what's called a destructuring assignment to bring in the `Component` object. Destructuring lets you extract multiple object properties and assign them to variables using a single statement.
 
 Note: For more information about ES6 modules I'd recommend reading [this blog post by Dr. Axel Rauschmayer](http://2ality.com/2014/09/es6-modules-final.html).
@@ -185,35 +187,35 @@ export default class App extends Component<Props>
 This defines a class which extends a React `Component`. The `export default` class modifier makes the class "public", allowing it to be used in other files.
 
 Open index.js and take a look at the entry point file:
-
+```javascript
 import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 
 AppRegistry.registerComponent(appName, () => App);
-
+```
 This registers the imported component that serves as the app's entry point.
 
 It's time to start building your app.
 
 In App.js, add the following at the top of the file, just before the import statements:
-
+```javascript
 'use strict';
-
+```
 This enables Strict Mode, which adds improved error handling and disables some less-than-ideal JavaScript language features. In simple terms, it makes JavaScript better!
 
 Inside the `App` class replace `render()` with the following:
-
+```javascript
 render() {
   return React.createElement(Text, {style: styles.description}, "Search for houses to buy!");
 }
-
+```
 `App` extends `React.Component`, the basic building block of the React UI. Components contain immutable properties, mutable state variables and expose a method for rendering. Your current application is quite simple and only requires a render method.
 
 React Native components are not Android view classes; instead they are a lightweight equivalent. The framework takes care of transforming the tree of React components into the required native UI.
 
 Next, replace the `const styles` statement with the following:
-
+```javascript
 const styles = StyleSheet.create({
   description: {
     fontSize: 18,
@@ -222,6 +224,7 @@ const styles = StyleSheet.create({
     marginTop: 65,
   },
 });
+```
 
 This defines a single style that you've applied to the description text. If you've done any web development before, you'll probably recognize those property names. The React Native StyleSheet class used to style the application UI is similar to the [Cascading Style Sheets (CSS)](https://developer.mozilla.org/en-US/docs/Web/CSS) used on the Web.
 
@@ -263,8 +266,9 @@ Using JSX
 Your current application uses `React.createElement` to construct the simple UI for your application, which React turns into the native equivalent. While your JavaScript code is perfectly readable in its present form, a more complex UI with nested elements would rapidly become quite a mess.
 
 Make sure the app is still running, then return to your text editor to edit App.js. Modify the body of `render` to be the following:
-
+```jsx
 return <Text style={styles.description}>Search for houses to buy! (Again)</Text>;
+```
 
 This is [JSX](http://facebook.github.io/react/docs/jsx-in-depth.html), or JavaScript syntax extension, which mixes HTML-like syntax directly in your JavaScript code; if you're already a web developer, this should feel rather familiar. You'll use JSX throughout this article.
 
@@ -279,9 +283,9 @@ You can even skip having to refresh the app by enabling live reload. Press Cmd+
 [![](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_enable_live_reload-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_enable_live_reload.png)
 
 In App.js, modify the `render` method's body to the following:
-
+```jsx
 return <Text style={styles.description}>Search for houses to buy!</Text>;
-
+```
 Save your changes. Note that the emulator automatically refreshes to reflect your changes:
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_live_reload_test-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_live_reload_test.png)
@@ -300,11 +304,11 @@ yarn add react-navigation
 You're now ready to use its navigation components.
 
 In App.js, add the following after the import statements near the top:
-
+```jsx
 import {
   createStackNavigator,
 } from 'react-navigation';
-
+```
 `createStackNavigator` enables your app to transition from one screen to another with the new screen being placed on top of a stack.
 
 Next, replace the `App` class definition with the following:
@@ -312,20 +316,20 @@ Next, replace the `App` class definition with the following:
 class SearchPage extends Component<Props> {
 
 Next, add the following to `SearchPage` just before `render()`:
-
+```jsx
 static navigationOptions = {
   title: 'Property Finder',
 };
-
+```
 This sets the title in the navigation bar for this screen.
 
 Add the following below the `SearchPage` component:
-
+```jsx
 const App = createStackNavigator({
   Home: { screen: SearchPage },
 });
 export default App;
-
+```
 This configures the `SearchPage` component as the initial component in the navigation stack.
 
 Save your changes and check the emulator to see the updated UI:
@@ -338,7 +342,7 @@ Building out the Search Page
 ----------------------------
 
 Add a new file named SearchPage.js and place it in the same folder as App.js. Add the following code to this file:
-
+```jsx
 'use strict';
 
 import React, { Component } from 'react';
@@ -351,11 +355,11 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
-
+```
 This imports the modules you'll need to build the UI.
 
 Add the following `Component` subclass after the import statements:
-
+```jsx
 type Props = {};
 export default class SearchPage extends Component<Props> {
   static navigationOptions = {
@@ -375,11 +379,11 @@ export default class SearchPage extends Component<Props> {
     );
   }
 }
-
+```
 `render` is a great demonstration of JSX and the structure it provides. Along with the style, you can very easily visualize the UI constructed by this component: a container with two text labels.
 
 Now, add the following style code at the bottom of the file:
-
+```jsx
 const styles = StyleSheet.create({
   description: {
     marginBottom: 20,
@@ -393,15 +397,15 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 });
-
+```
 Again, these are standard CSS properties. Setting up styles like this is less visual than using Android Studio's layout design editor, but it's better than setting view properties one by one in your `onCreate()` methods! :]
 
 Save your changes.
 
 Open App.js and add the following just after the current `import` statements near the top of the file:
-
+```jsx
 import SearchPage from './SearchPage';
-
+```
 This imports `SearchPage` from the file you just created.
 
 Remove the `SearchPage` class and its associated `description` style from App.js. You won't be needing that code any longer. This may also be a good time to get rid of the all unused imports: those from `react` and `react-native`.
@@ -430,7 +434,7 @@ This is due to the default `flexDirection` value of `column` being active. 
 You're going to see some other layout options at play.
 
 Open SearchPage.js and insert the following just after the closing tag of the second `Text` element:
-
+```jsx
 <View style={styles.flowRight}>
   <TextInput
     underlineColorAndroid={'transparent'}
@@ -442,11 +446,11 @@ Open SearchPage.js and insert the following just after the closing tag of the 
     title='Go'
   />
 </View>
-
+```
 You've added a view that holds a text input and a button.
 
 In your styles definition, add the following new styles below the `container` style:
-
+```jsx
 flowRight: {
   flexDirection: 'row',
   alignItems: 'center',
@@ -463,7 +467,7 @@ searchInput: {
   borderRadius: 8,
   color: '#48BBEC',
 },
-
+```
 These set the placement of the text input and button.
 
 Save your changes and check the emulator to see your updates:
@@ -484,16 +488,16 @@ Next, create a directory in your root project folder named Resources. Place the
 Drawables: In Android, static app images are typically added to the project's res/drawable folder. In React Native, however, it's [recommended not to](http://facebook.github.io/react-native/docs/images.html#content). Placing your image assets alongside your components helps to keep your components self contained, doesn't require the app to be relaunched if you add new images. It also provides a single place for adding images if you are building for both iOS and Android.
 
 Back in SearchPage.js, add the following beneath the closing tag of the `View`component that wraps the text input and button:
-
+```jsx
 <Image source={require('./Resources/house.png')} style={styles.image}/>
-
+```
 Now, add the image's corresponding style to the end of the style list:
-
+```jsx
 image: {
   width: 217,
   height: 138,
 },
-
+```
 Save your changes and check out your new UI:
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_add_house-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_add_house.png)
@@ -508,34 +512,34 @@ Adding Component State
 A React component can manage its internal state through an object called, you guessed it, `state`. Whenever a component's state changes, `render()` is called.
 
 Within SearchPage.js, add the following code just before `render()`:
-
+```jsx
 constructor(props) {
   super(props);
   this.state = {
     searchString: 'london'
   };
 }
-
+```
 Your component now has a `state` variable, with `searchString` set to an initial value of `london`.
 
 Within `render()`, change `TextInput` to the following:
-
+```jsx
 <TextInput
   underlineColorAndroid={'transparent'}
   style={styles.searchInput}
   value={this.state.searchString}
   placeholder='Search via name or postcode'/>
-
+```
 This sets the `TextInput` value property --- that is, the text displayed to the user --- to the current value of the `searchString` state variable. This takes care of setting the initial state, but what happens when the user edits this text?
 
 The first step is to create a method that acts as an event handler. Within the `SearchPage` class add the following method below the `constructor`:
-
+```jsx
 _onSearchTextChanged = (event) => {
   console.log('_onSearchTextChanged');
   this.setState({ searchString: event.nativeEvent.text });
   console.log('Current: '+this.state.searchString+', Next: '+event.nativeEvent.text);
 };
-
+```
 This defines a function using the `=>` syntax. This is an arrow function, another [recent addition to the JavaScript language](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) that provides a succinct syntax for creating anonymous functions.
 
 The function takes the value from the native browser event's `text` property and uses it to update the component's state. It also adds some logging code that will make sense shortly.
@@ -543,35 +547,35 @@ The function takes the value from the native browser event's `text` property a
 Note: JavaScript classes do not have access modifiers, so they have no concept of `private`. As a result you often see developers prefixing methods with an underscore to indicate that they should be considered private.
 
 To wire up this method so it gets called when the text changes, return to the `TextInput` field within the `render` method and add an `onChange` property so the tag looks like the following:
-
+```jsx
 <TextInput
   underlineColorAndroid={'transparent'}
   style={styles.searchInput}
   value={this.state.searchString}
   onChange={this._onSearchTextChanged}
   placeholder='Search via name or postcode'/>
-
+```
 Whenever the user changes the text, you invoke the function supplied to `onChange`; in this case, it's `_onSearchTextChanged`.
 
 There's one final step before you refresh your app again: add the following logging statement to the top of `render()`, just before `return`:
-
+```javascript
 console.log('SearchPage.render');
-
+```
 Save your changes and return to your emulator. You should see the text input's initial value set to london:
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_input_placeholder-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_input_placeholder.png)
 
 Run the following in terminal to view the debug logs:
-
+```source-shell
 react-native log-android
-
+```
 In the emulator, edit the input text. You should see something like this:
-
+```source-shell
 08-01 18:09:02.720  5444  8028 I ReactNativeJS: SearchPage.render
 08-01 18:09:33.453  5444  8028 I ReactNativeJS: _onSearchTextChanged
 08-01 18:09:33.453  5444  8028 I ReactNativeJS: Current: london, Next: londona
 08-01 18:09:33.454  5444  8028 I ReactNativeJS: SearchPage.render
-
+```
 Looking at the console logs, the order of the logging statement seems a little odd:
 
 1.  This is the initial call to `render()` to set up the view.
@@ -597,27 +601,27 @@ First, remove the logging code you just added above, you'll no longer need it.
 In order to implement the search functionality you need to handle the Go button press, create a suitable API request, and provide a visual indication that a query is in progress.
 
 Within SearchPage.js, update the initial state within the constructor:
-
+```jsx
 this.state = {
   searchString: 'london',
   isLoading: false,
 };
-
+```
 The new `isLoading` property will keep track of whether a query is in progress.
 
 Add the following logic to the start of `render`:
-
+```jsx
 const spinner = this.state.isLoading ?
   <ActivityIndicator size='large'/> : null;
-
+```
 This is a ternary `if` statement that optionally adds an activity indicator, depending on the component's `isLoading` state. Because the entire component is rendered each time, you are free to mix JSX and JavaScript logic.
 
 Within the JSX that defines the search UI in `return`, add the following line below the `Image` to place the spinner:
-
+```jsx
 {spinner}
-
+```
 Next, add the following methods to the `SearchPage` class:
-
+```jsx
 _executeQuery = (query) => {
   console.log(query);
   this.setState({ isLoading: true });
@@ -627,7 +631,7 @@ _onSearchPressed = () => {
   const query = urlForQueryAndPage('place_name', this.state.searchString, 1);
   this._executeQuery(query);
 };
-
+```
 `_executeQuery()` will eventually run the query, but for now it simply logs a message to the console and sets `isLoading` appropriately so the UI can show the new state.
 
 `_onSearchPressed()` configures and initiates the search query. This should kick off when the Go button is pressed.
@@ -637,7 +641,7 @@ To accomplish that, go back to the `render` method and replace the `onPress`�
 onPress={this._onSearchPressed}
 
 Finally, add the following utility function just above the `SearchPage` class declaration:
-
+```jsx
 function urlForQueryAndPage(key, value, pageNumber) {
   const data = {
       country: 'uk',
@@ -655,7 +659,7 @@ function urlForQueryAndPage(key, value, pageNumber) {
 
   return 'https://api.nestoria.co.uk/api?' + querystring;
 }
-
+```
 `urlForQueryAndPage` doesn't depend on `SearchPage`, so it's implemented as a free function rather than a method. It first creates the query string based on the parameters in `data`. Then it transforms the data into `name=value` pairs separated by ampersands. Finally, it calls the [Nestoria API](http://www.nestoria.co.uk/help/api) to return the property listings.
 
 Save your changes, head back to the emulator and press Go. You'll see the activity indicator spin:
@@ -663,26 +667,26 @@ Save your changes, head back to the emulator and press Go. You'll see the activ
 [![](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_activity_indicator-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2017/11/emulator_activity_indicator.png)
 
 In terminal, the debug logs should show something like this:
-
+```source-shell
 08-01 18:14:45.110  5444  8308 I ReactNativeJS: https://api.nestoria.co.uk/api?country=uk&pretty=1&encoding=json&listing_type=buy&action=search_listings&page=1&place_name=london
-
+```
 Copy and paste that URL into your browser to see the result. You'll see a massive JSON object. Don't worry --- you don't need to understand that! You'll add code to parse that now.
 
 Performing an API Request
 -------------------------
 
 Still within SearchPage.js, update the initial state in the class constructor to add a `message` variable to the end of the list:
-
+```jsx
 message: '',
-
+```
 Within `render`, add the following to the bottom of your UI, right after the spinner:
-
+```jsx
 <Text style={styles.description}>{this.state.message}</Text>
-
+```
 You'll use this to display a range of messages to the user.
 
 Add the following code to the end of `_executeQuery`:
-
+```jsx
 fetch(query)
   .then(response => response.json())
   .then(json => this._handleResponse(json.response))
@@ -691,11 +695,11 @@ fetch(query)
       isLoading: false,
       message: 'Something bad happened ' + error
    }));
-
+```
 This makes use of the `fetch` function, which is [part of the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). The asynchronous response is returned as a [Promise](http://www.html5rocks.com/en/tutorials/es6/promises/). The success path calls `_handleResponse` which you'll define next, to parse the JSON response.
 
 Add the following function to `SearchPage`:
-
+```jsx
 _handleResponse = (response) => {
   this.setState({ isLoading: false , message: '' });
   if (response.application_response_code.substr(0, 1) === '1') {
@@ -704,15 +708,15 @@ _handleResponse = (response) => {
     this.setState({ message: 'Location not recognized; please try again.'});
   }
 };
-
+```
 This clears `isLoading` and logs the number of properties found if the query was successful.
 
 Note: Nestoria has [a number of non-1** response codes](http://www.nestoria.co.uk/help/api-return-codes) that are potentially useful. For example, 202 and 200 return a list of best-guess locations.
 
 Save your changes, head back to the emulator and press Go. You should see a debug log message saying that 20 properties (the default result size) were found:
-
+```source-shell
 08-01 18:18:07.261  5444  8447 I ReactNativeJS: Properties found: 20
-
+```
 Also note that when this message is logged, the spinner goes away.
 
 It's time to see what those 20 properties actually look like!
@@ -721,7 +725,7 @@ Displaying the Results
 ----------------------
 
 Create a new file SearchResults.js, and add the following:
-
+```jsx
 'use strict';
 
 import React, { Component } from 'react'
@@ -733,11 +737,11 @@ import {
   FlatList,
   Text,
 } from 'react-native';
-
+```
 This imports the relevant modules you'll use.
 
 Next, add the component:
-
+```jsx
 type Props = {};
 export default class SearchResults extends Component<Props> {
   static navigationOptions = {
@@ -769,7 +773,7 @@ export default class SearchResults extends Component<Props> {
     );
   }
 }
-
+```
 The above code makes use of a more specialized component --- `FlatList` --- which displays rows of data within a scrolling container, similar to `RecyclerView`. Here's a look at the `FlatList` properties:
 
 -   `data` provides the data to display
@@ -779,18 +783,18 @@ The above code makes use of a more specialized component --- `FlatList` --- wh
 Save your new file.
 
 In App.js, add the following just beneath the `import` statements:
-
+```jsx
 import SearchResults from './SearchResults';
-
+```
 This brings in the newly added `SearchResults` class.
 
 Now, modify your `createStackNavigator` as follows:
-
+```jsx
 const App = createStackNavigator({
   Home: { screen: SearchPage },
   Results: { screen: SearchResults },
 });
-
+```
 This adds a new route named Results to the navigator and registers `SearchResults`as the component that will handle this route. When a component is registered with a navigator, it gets a `navigation` prop added to it that can be used to manage screen transitions and pass in data.
 
 Save your file changes.
@@ -812,7 +816,7 @@ A Touch of Style
 ----------------
 
 Add the following style definition at the end of SearchResults.js:
-
+```jsx
 const styles = StyleSheet.create({
   thumb: {
     width: 80,
@@ -840,11 +844,11 @@ const styles = StyleSheet.create({
     padding: 10
   },
 });
-
+```
 This defines all the styles that you are going to use to render each row.
 
 Add a new component representing a row by adding the following just under the import statements:
-
+```jsx
 class ListItem extends React.PureComponent {
   _onPress = () => {
     this.props.onPressItem(this.props.index);
@@ -872,13 +876,13 @@ class ListItem extends React.PureComponent {
     );
   }
 }
-
+```
 This manipulates the returned price, which is in the format 300,000 GBP, to remove the GBP suffix. Then it renders the row UI using techniques that you are by now quite familiar with. Of note, an `Image` is added to the row and is loaded from a returned URL (`item.img_url`) which React Native decodes off the main thread.
 
 You may have noticed that this component extends `React.PureComponent`. React re-renders a `Component` if its props or state changes. React only re-renders a `PureComponent` if a shallow compare of the state and props shows changes. Used under the right conditions, this can give your app a performance boost.
 
 Now replace `_renderItem` with the following:
-
+```jsx
 _renderItem = ({item, index}) => (
   <ListItem
     item={item}
@@ -890,7 +894,7 @@ _renderItem = ({item, index}) => (
 _onPressItem = (index) => {
   console.log("Pressed row: "+index);
 };
-
+```
 `_onPressItem` is passed into `ListItem` to handle a row selection. This design pattern is equivalent to a callback. In this callback, the index for the selected row is logged.
 
 Save your work, head back to the emulator, press Go, and check out your results:
